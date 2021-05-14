@@ -16,7 +16,6 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
 
-
     text = request.form['text']
     textlen = len(text)
 
@@ -24,11 +23,14 @@ def predict():
     result = pad_sequences(onehot, padding='pre', maxlen=textlen)
 
     prediction = model.predict(result)
+    prediction = prediction[0]
+    
     if prediction > 0.5:
         ans = "Sarcastic"
     else:
         ans = "Not Sarcastic"
-    return render_template('output.html', text=text, prediction=prediction[0], ans=ans)
+    
+    return render_template('output.html', text=text, prediction=round(prediction[0]*100), ans=ans)
 
 
 if __name__ == "__main__":
