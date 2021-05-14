@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 from tensorflow.keras.preprocessing.text import one_hot
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-import pickle
 
 from tensorflow import keras
 model = keras.models.load_model('sarcasm-detector.h5')
@@ -17,9 +16,6 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
 
-    # Filename = "sarcasm-detector.pkl"
-    # with open(Filename, 'rb') as file:
-    #   model = pickle.load(file)
 
     text = request.form['text']
     textlen = len(text)
@@ -32,7 +28,7 @@ def predict():
         ans = "Sarcastic"
     else:
         ans = "Not Sarcastic"
-    return render_template('output.html', text=text, prediction=prediction, ans=ans)
+    return render_template('output.html', text=text, prediction=prediction[0], ans=ans)
 
 
 if __name__ == "__main__":

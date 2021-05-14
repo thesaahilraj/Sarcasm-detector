@@ -9,7 +9,7 @@ body {
 input,
 textarea {
   background-color: #F3E5F5;
-  border-radius: 50px !important;
+  border-radius: 30px !important;
   padding: 12px 15px 12px 15px !important;
   width: 100%;
   box-sizing: border-box;
@@ -38,7 +38,7 @@ button:focus {
 }
 
 .card {
-  border-radius: 0;
+  border-radius: 5;
   border: none
 }
 
