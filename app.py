@@ -11,22 +11,17 @@ def index():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-  try:
-    Filename = "sarcasm-detector.pkl"
-    with open(Filename, 'rb') as file:  
-      model = pickle.load(file)
-  except:
-    return 'Load Model Error'
+  
+  Filename = "sarcasm-detector.pkl"
+  with open(Filename, 'rb') as file:  
+    model = pickle.load(file)
   
   text = request.form['text']
   textlen = len(text)
 
-  try:
-    onehot=[one_hot(text, textlen)]
-    result = pad_sequences(onehot, padding='pre', maxlen=textlen)
-  except:
-    return 'Input Preprocessing Error'
-
+  onehot=[one_hot(text, textlen)]
+  result = pad_sequences(onehot, padding='pre', maxlen=textlen)
+  
   prediction = model.predict(result)
   if prediction > 0.5:
     ans = "Sarcastic"
