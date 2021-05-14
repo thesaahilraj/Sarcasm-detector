@@ -12,7 +12,9 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
   try:
-    model = pickle.load(open('sarcasm-detector.pkl','rb'))
+    Filename = "sarcasm-detector.pkl"
+    with open(Filename, 'rb') as file:  
+      model = pickle.load(file)
   except:
     return 'Load Model Error'
   
